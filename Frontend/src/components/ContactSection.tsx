@@ -8,6 +8,9 @@ import emailjs from '@emailjs/browser';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ContactSection = () => {
+
+
+
     const formRef = useRef();
     const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
     const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
@@ -40,10 +43,22 @@ const ContactSection = () => {
             });
     };
 
+
+    // Base ImageKit URL (comes from .env)
+    const baseURL = import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT || "https://ik.imagekit.io/tcn5hrn0h";
+
+    // Define the paths of your images on ImageKit
+    const projectImagePath = "/projects/Main/handshake.png";
+    const backImagePath = "/projects/Main/Back.png";
+
+    // Build full URLs
+    const projectImageURL = `${baseURL}${projectImagePath}`;
+    const backImageURL = `${baseURL}${backImagePath}`;
+
     return (
         <section
             className="relative w-full p-5 bg-white overflow-hidden flex flex-col items-center justify-between bg-cover bg-center"
-            style={{ backgroundImage: `url(${Back})` }}
+            style={{ backgroundImage: `url(${backImageURL})` }}
         >
             <div className="w-full max-w-6xl mx-auto">
                 <div className="text-center mb-12">

@@ -26,7 +26,7 @@ const Footer = () => {
            
             
             {/* Contact Info */}
-            <div className="space-y-3">
+            <div className="space-y-4">
 
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-[#D7DF21] rounded-full flex items-center justify-center">
