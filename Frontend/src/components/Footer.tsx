@@ -5,6 +5,12 @@ import { FaWhatsapp, FaInstagram , FaFacebook} from "react-icons/fa";
 
 const Footer = () => {
 
+    const baseURL = import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT || "https://ik.imagekit.io/tcn5hrn0h";
+    const projectImagePath = "/projects/Main/Concept_Logo_Black_April2025-01 2(1)(1).png";
+    const projectImageURL = `${baseURL}${projectImagePath}`;
+
+
+
     // WhatsApp number in international format without plus or spaces:
     const whatsappNumber = "96103002520";
     // Optional default message (URL-encoded)
@@ -19,7 +25,7 @@ const Footer = () => {
           <div className="space-y-6">
             {/* Logo */}
             <div className="flex items-center gap-1 mb-8">
-              <img src={Concept} alt="Concept Logo" className="max-h-12 w-auto" />
+                          <img src={projectImageURL} alt="Concept Logo" className="max-h-12 w-auto" />
             </div>
             
             {/* Copyright */}

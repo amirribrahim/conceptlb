@@ -4,7 +4,14 @@ import { Link } from "react-router-dom";
 import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 import { Menu, X } from "lucide-react";
 
+
 const Header = () => {
+
+
+    const baseURL = import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT || "https://ik.imagekit.io/tcn5hrn0h";
+    const projectImagePath = "/projects/Main/Concept_Logo_Black_April2025-01 2(1)(1).png";
+    const projectImageURL = `${baseURL}${projectImagePath}`;
+
 
     // WhatsApp number in international format without plus or spaces:
     const whatsappNumber = "96103002520";
@@ -32,7 +39,7 @@ const Header = () => {
                 {/* Logo */}
                 <Link to="/" className="flex items-center relative" aria-label="Go to homepage">
                     <img
-                        src={Concept}
+                        src={projectImageURL}
                         alt="Upscale Logo"
                         className="h-10 w-auto object-contain scale-125 -ml-2 cursor-pointer"
                     />

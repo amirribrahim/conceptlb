@@ -4,26 +4,41 @@ import legalTransactions from "@/assets/legal-transactions.png";
 import { Button } from "@/components/ui/button";
 
 const ServicesSection = () => {
+
+
+    // Base ImageKit URL (comes from .env)
+    const baseURL = import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT || "https://ik.imagekit.io/tcn5hrn0h";
+
+    // Define the paths of your images on ImageKit
+    const projectImagePath1 = "/projects/Main/legal-transactions.png";
+    const projectImagePath2 = "/projects/Main/real-estate-development.png"; 
+    const projectImagePath3 = "/projects/Main/architecture-blue-print.png";
+
+    // Build full URLs
+    const projectImageURL1 = `${baseURL}${projectImagePath1}`;
+    const projectImageURL2 = `${baseURL}${projectImagePath2}`;
+    const projectImageURL3 = `${baseURL}${projectImagePath3}`;
+
   const services = [
     {
       id: 1,
       title: "REAL ESTATE DEVELOPMENT",
       description: "We help you buy, sell, or rent residential and commercial properties with expert market knowledge and personalized guidance.",
-      image: realEstateDevelopment,
+          image: projectImageURL2,
       alt: "3D architectural wireframe of modern house development"
     },
     {
       id: 2,
       title: "INTERIOR DESIGN",
       description: "We create modern, functional, and stylish interiors tailored to your taste, turning every space into a reflection of your lifestyle.",
-      image: interiorDesign,
+        image: projectImageURL3,
       alt: "3D building model with architectural floor plans"
     },
     {
       id: 3,
       title: "LEGAL TRANSACTIONS",
       description: "We handle all legal aspects of real estate, from contracts to registrations, ensuring secure, smooth, and compliant property deals.",
-      image: legalTransactions,
+        image: projectImageURL1,
       alt: "Professional clipboard with legal documents and pen"
     }
   ];

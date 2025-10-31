@@ -1,5 +1,4 @@
-import handshake from "@/assets/handshake-01 1(1)(1).png";
-import Back from "@/assets/Back.png";
+
 
 const SalesSection = () => {
 
@@ -9,7 +8,7 @@ const SalesSection = () => {
     const baseURL = import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT || "https://ik.imagekit.io/tcn5hrn0h";
 
     // Define the paths of your images on ImageKit
-    const projectImagePath = "/projects/Main/handshake.png";
+    const projectImagePath = "/projects/Main/handshake-01.png";
     const backImagePath = "/projects/Main/Back.png";
 
     // Build full URLs
@@ -69,17 +68,17 @@ const SalesSection = () => {
                     <div
                         className="absolute bg-[#D7DF21] rounded-full z-0"
                         style={{
-                            width: "clamp(20rem, 32vw, 45rem)",
-                            height: "clamp(20rem, 32vw, 45rem)",
+                            width: "clamp(20rem, 34vw, 45rem)",
+                            height: "clamp(20rem, 34vw, 45rem)",
                         }}
                     ></div>
                     {/* Building image - responsive sizing */}
                     <img
                         src={projectImageURL}
                         alt="Modern apartment building"
-                        className="relative z-10 max-w-none object-cover  mt-10 mb-20"
+                        className="relative z-10 max-w-none object-cover  mt-12 mb-23 mr-5"
                         style={{
-                            width: "clamp(25rem, 38vw, 56rem)",
+                            width: "clamp(21rem, 35.5vw, 56rem)",
                         }}
                     />
                 </div>

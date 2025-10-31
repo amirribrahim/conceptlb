@@ -1,6 +1,11 @@
 import professionalContractor from "@/assets/professional-contractor.png";
 
 const WhyUsSection = () => {
+
+    const baseURL = import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT || "https://ik.imagekit.io/tcn5hrn0h";
+    const projectImagePath = "/projects/Main/Man1.png";
+    const projectImageURL = `${baseURL}${projectImagePath}`;
+
   return (
     <section className="px-2 py-16">
       <div className="max-w-7xl mx-auto bg-[#E6E6E6] p-0 rounded-3xl">
@@ -40,12 +45,12 @@ const WhyUsSection = () => {
           {/* Right side - Professional image with circular background */}
           <div className="relative flex items-center justify-center">
             {/* Bigger circle */}
-            <div className="absolute w-[28rem] h-[28rem] bg-[#D7DF21] rounded-full z-0 ml-20"></div>
+            <div className="absolute w-[30rem] h-[30rem] bg-[#D7DF21] rounded-full z-0 ml-20"></div>
             {/* Bigger image */}
             <img 
-              src={professionalContractor}
+                          src={projectImageURL}
               alt="Professional contractor" 
-              className="relative z-10 w-[30rem] h-[35rem] object-cover ml-20 mt-10"
+              className="relative z-10 w-[35rem] h-[35rem] object-cover ml-20 mt-10"
             />
           </div>
         </div>
