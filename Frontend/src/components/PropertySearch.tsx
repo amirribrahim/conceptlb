@@ -78,23 +78,7 @@ const PropertySearch = () => {
                 </h1>
             </div>
 
-            {/* Dropdown Filters (optional UI for later) */}
-            <div className="bg-[#F4F4F4] rounded-2xl p-8 shadow-md">
-                <div className="flex flex-wrap items-center gap-4">
-                    <div className="flex-1 min-w-[150px]">
-                        <button className="w-full flex items-center justify-between bg-white border border-gray-300 text-black px-6 py-3 rounded-full shadow-sm hover:border-black transition">
-                            LOCATION
-                            <ChevronDown className="ml-2 h-4 w-4" />
-                        </button>
-                    </div>
-                    <div className="flex-1 min-w-[150px]">
-                        <button className="w-full flex items-center justify-between bg-white border border-gray-300 text-black px-6 py-3 rounded-full shadow-sm hover:border-black transition">
-                            PRICE RANGE
-                            <ChevronDown className="ml-2 h-4 w-4" />
-                        </button>
-                    </div>
-                </div>
-            </div>
+          
 
             {/* Loading / No Results */}
             {loading ? (
@@ -128,8 +112,8 @@ const PropertySearch = () => {
                                 >
                                     <Heart
                                         className={`h-5 w-5 ${favorites.includes(property._id)
-                                                ? "fill-red-500 text-red-500"
-                                                : "text-gray-600"
+                                            ? "fill-red-500 text-red-500"
+                                            : "text-gray-600"
                                             }`}
                                     />
                                 </button>

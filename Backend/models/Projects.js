@@ -22,7 +22,7 @@ const ProjectSchema = new mongoose.Schema(
         mapImage: { type: String }, // map photo (new field)
         layout: LayoutSchema,
         rooms: [RoomSchema],
-        type: { type: String, enum: ["interior", "exterior", "both" , "sales"], default: "interior" },
+        type: { type: String, enum: ["interior", "exterior", "both", "sales"], default: "interior" },
     },
     { timestamps: true }
 );

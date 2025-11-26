@@ -38,6 +38,22 @@ const AdminDashboard = () => {
   // --- UI + form state
     const [activeSection, setActiveSection] = useState("dashboard");
 
+    const handleLogout = async () => {
+        try {
+            await fetch("http://localhost:5000/api/auth/logout", {
+                method: "POST",
+                credentials: "include", // important to include cookies
+            });
+            // redirect to login page
+            window.location.href = "/adminLog";
+        } catch (err) {
+            console.error("Logout failed:", err);
+        }
+    };
+
+
+
+
    const [openSales , setOpenSales] = useState(false);
   const [openProject, setOpenProject] = useState(false);
   const [projectType, setProjectType] = useState("interior");
@@ -372,59 +388,61 @@ const AdminDashboard = () => {
   return (
     <div className="flex h-screen bg-gray-100 font-sans">
       {/* Sidebar */}
-      <aside className="w-64 bg-white text-black shadow-xl flex flex-col">
-        <div className="flex items-center">
-          <img
-            src={Concept}
-            alt="Concept Logo"
-            className="h-12 w-auto ml-6 mt-6 mb-3"
-          />
-        </div>
+       {/* Sidebar */}
+ {/* Sidebar */}
+          <aside className="w-20 md:w-64 bg-white text-black shadow-xl flex flex-col">
+              <div className="flex items-center justify-center md:justify-start">
+                  <img
+                      src={Concept}
+                      alt="Concept Logo"
+                      className="h-8 w-auto mt-4 mb-2 md:h-12 md:ml-6 md:mt-6 md:mb-3"
+                  />
+              </div>
 
-        <nav className="flex-1 p-4 space-y-3">
-          <button
-            onClick={() => setActiveSection("dashboard")}
-            className={`flex items-center gap-3 w-full p-3 rounded-lg transition ${
-              activeSection === "dashboard" ? "bg-[#D6DF25]" : "hover:bg-[#f0f3a3]"
-            }`}
-          >
-            <LayoutDashboard size={18} /> Dashboard
-          </button>
+              <nav className="flex-1 p-2 md:p-4 space-y-3">
+                  <button
+                      onClick={() => setActiveSection("dashboard")}
+                      className={`flex items-center gap-1 md:gap-3 w-full p-3 rounded-lg transition ${activeSection === "dashboard"
+                              ? "bg-[#D6DF25]"
+                              : "hover:bg-[#f0f3a3]"
+                          }`}
+                  >
+                      <LayoutDashboard size={18} />
+                      <span className="hidden md:inline">Dashboard</span>
+                  </button>
 
-          <button
-            onClick={() => setActiveSection("projects")}
-            className={`flex items-center gap-3 w-full p-3 rounded-lg transition ${
-              activeSection === "projects" ? "bg-[#D6DF25]" : "hover:bg-[#f0f3a3]"
-            }`}
-          >
-            <FolderKanban size={18} /> Projects
-          </button>
+                  <button
+                      onClick={() => setActiveSection("projects")}
+                      className={`flex items-center gap-1 md:gap-3 w-full p-3 rounded-lg transition ${activeSection === "projects"
+                              ? "bg-[#D6DF25]"
+                              : "hover:bg-[#f0f3a3]"
+                          }`}
+                  >
+                      <FolderKanban size={18} />
+                      <span className="hidden md:inline">Projects</span>
+                  </button>
+              </nav>
 
-          <button
-            onClick={() => setActiveSection("sales")}
-            className={`flex items-center gap-3 w-full p-3 rounded-lg transition ${
-              activeSection === "sales" ? "bg-[#D6DF25]" : "hover:bg-[#f0f3a3]"
-            }`}
-          >
-            <Handshake size={18} /> Sales
-          </button>
-        </nav>
+              {/* Logout Button */}
+              <div className="p-2 md:p-4 border-t border-gray-200">
+                  <button
+                      onClick={handleLogout}
+                      className="flex items-center gap-1 md:gap-3 w-full p-3 rounded-lg hover:bg-red-100 text-red-600 transition"
+                  >
+                      <LogOut size={18} />
+                      <span className="hidden md:inline">Logout</span>
+                  </button>
+              </div>
+          </aside>
 
-        <div className="p-4 border-t border-gray-200">
-          <button className="flex items-center gap-2 text-gray-700">
-            <LogOut size={20} /> Logout
-          </button>
-        </div>
-      </aside>
+
+
 
       {/* Main */}
       <div className="flex-1 flex flex-col">
         {/* Top Bar */}
         <header className="flex items-center justify-between p-4 bg-white border-b shadow-sm sticky top-0 z-10">
-          <div className="flex items-center gap-3">
-            <Search className="text-gray-400" />
-            <Input placeholder="Search..." className="w-64" />
-          </div>
+        
 
           <div className="flex items-center space-x-3">
             {activeSection !== "dashboard" && (
@@ -464,58 +482,55 @@ const AdminDashboard = () => {
         )}
 
         {/* Projects */}
-        {activeSection === "projects" && (
-          <main className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto">
-            {projectsList.length === 0 ? (
-              <p className="text-gray-500">No projects yet. Click "Add Project" to create one.</p>
-            ) : (
-              projectsList.map((proj) => (
-                <Card
-                  key={proj._id}
-                  className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition transform hover:scale-105"
-                >
-                  <div className="relative">
-                    <img
-                              src={proj.image}
-                      alt={proj.title}
-                      className="w-full h-52 object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
-                      <h3 className="text-lg font-semibold text-white">{proj.title}</h3>
-                    </div>
-                  </div>
-                  <CardContent className="p-4">
-                    <p className="text-gray-600 text-sm">{proj.description}</p>
-                    <div className="mt-4 flex justify-between items-center">
-                      <div className="text-sm text-gray-500">
-                        <div>Total Area: {proj.layout?.totalArea}</div>
-                        <div>Rooms: {proj.layout?.rooms}</div>
-                      </div>
-                      <div className="flex gap-2">
-                        <div className="w-full md:w-auto flex justify-center md:justify-start">
-                          <Button
-                            className="text-white hover:bg-[#D6DF25]/50 px-6 py-2 border-2 rounded-full font-semibold shadow-md"
-                            onClick={() => openEditModalWithProject(proj)}
-                          >
-                            Edit
-                          </Button>
-                        </div>
-                        <div className="w-full md:w-auto flex justify-center md:justify-start">
-                          <Button
-                            className="bg-[#D7DF21] text-black hover:bg-[#D6DF25]/50 px-6 py-2 rounded-full font-semibold shadow-md"
-                            onClick={() => handleDelete(proj._id)}
-                          >
-                            Delete
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))
-            )}
-          </main>
-        )}
+       {activeSection === "projects" && (
+                  <main className="p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 overflow-y-auto">
+                      {projectsList.length === 0 ? (
+                          <p className="text-gray-500 col-span-full text-center">No projects yet. Click "Add Project" to create one.</p>
+                      ) : (
+                          projectsList.map((proj) => (
+                              <Card
+                                  key={proj._id}
+                                  className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition transform hover:scale-105 min-h-[320px] md:min-h-[400px] flex flex-col"
+                              >
+                                  <div className="relative flex-shrink-0">
+                                      <img
+                                          src={proj.image}
+                                          alt={proj.title}
+                                          className="w-full h-32 md:h-52 object-cover"
+                                      />
+                                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+                                          <h3 className="text-lg font-semibold text-white">{proj.title}</h3>
+                                      </div>
+                                  </div>
+                                  <CardContent className="p-4 flex-1 flex flex-col justify-between">
+                                      <p className="text-gray-600 text-sm mb-4">{proj.description}</p>
+                                      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                                          <div className="text-sm text-gray-500">
+                                              <div>Total Area: {proj.layout?.totalArea}</div>
+                                              <div>Rooms: {proj.layout?.rooms}</div>
+                                          </div>
+                                          <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
+                                              <Button
+                                                  className="text-white hover:bg-[#D6DF25]/50 px-4 md:px-6 py-2 border-2 rounded-full font-semibold shadow-md flex-1 md:flex-none"
+                                                  onClick={() => openEditModalWithProject(proj)}
+                                              >
+                                                  Edit
+                                              </Button>
+                                              <Button
+                                                  className="bg-[#D7DF21] text-black hover:bg-[#D6DF25]/50 px-4 md:px-6 py-2 rounded-full font-semibold shadow-md flex-1 md:flex-none"
+                                                  onClick={() => handleDelete(proj._id)}
+                                              >
+                                                  Delete
+                                              </Button>
+                                          </div>
+                                      </div>
+                                  </CardContent>
+                              </Card>
+                          ))
+                      )}
+                  </main>
+              )}
+
 
         {/* Sales */}
         {activeSection === "sales" && (

@@ -1,3 +1,4 @@
+
 // src/components/RealEstateExterior.tsx
 import { useEffect, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
@@ -16,8 +17,7 @@ interface Project {
     [key: string]: any;
 }
 
-const API_BASE = (import.meta.env.VITE_API_URL as string) || "http://localhost:5000";
-
+const API_BASE = import.meta.env.VITE_API_URL as string || "/api";
 const ProjectCarousel = ({
     title,
     description,
@@ -168,6 +168,7 @@ const ProjectCarousel = ({
                 >
                     <ChevronRight className="w-6 h-6 text-real-estate-text" />
                 </button>
+
             </div>
         </section>
     );
@@ -181,7 +182,7 @@ export const RealEstateExterior = () => {
         const fetchProjects = async () => {
             setLoading(true);
             try {
-                const res = await fetch(`${API_BASE}/api/projects`);
+                const res = await fetch(`${API_BASE}/projects`);
                 if (!res.ok) {
                     console.error("Projects fetch failed:", res.status, await res.text());
                     setProjects([]);

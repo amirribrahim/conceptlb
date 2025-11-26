@@ -1,4 +1,54 @@
-﻿const express = require("express");
+﻿// models/Project.js
+const mongoose = require("mongoose");
+
+const RoomSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    photos: [{ type: String }], // array of image URLs or filenames
+});
+
+const LayoutSchema = new mongoose.Schema({
+    totalArea: { type: String },
+    floors: { type: Number },
+    rooms: { type: Number },
+    bathrooms: { type: Number },
+    ceilingHeight: { type: String },
+});
+
+const ProjectSchema = new mongoose.Schema(
+    {
+        title: { type: String, required: true },
+        description: { type: String },
+        image: { type: String }, // cover photo
+        mapImage: { type: String }, // map photo (new field)
+        layout: LayoutSchema,
+        rooms: [RoomSchema],
+        type: { type: String, enum: ["interior", "exterior", "both", "sales"], default: "interior" },
+    },
+    { timestamps: true }
+);
+
+module.exports = mongoose.model("Project", ProjectSchema);
+
+root @srv1038810: /var/www / concept / Backend / models# cd /var/www/concept / Backend
+root @srv1038810: /var/www / concept / Backend# cd routes
+root @srv1038810: /var/www / concept / Backend / routes# cat authRoutes.js
+cat: authRoutes.js: No such file or directory
+root @srv1038810: /var/www / concept / Backend / routes# cat authRoutes.js
+cat: authRoutes.js: No such file or directory
+root @srv1038810: /var/www / concept / Backend / routes# cd /var/www/concept / Backend
+root @srv1038810: /var/www / concept / Backend# cat.env
+MONGO_URI = mongodb + srv://adminuser:Upscale2025@cluster0.0owpyda.mongodb.net/ConceptProjects?retryWrites=true&w=majority&appName=Cluster0
+PORT = 5001
+IMAGEKIT_PUBLIC_KEY = public_tcsHTMVU54DcW4uaPnaZR5PXR + k=
+IMAGEKIT_PRIVATE_KEY = private_70cOGacFZMs / BoJuHIoRlMZ7X90=
+IMAGEKIT_URL_ENDPOINT = https://ik.imagekit.io/tcn5hrn0h
+
+VITE_EMAILJS_SERVICE_ID = service_uux8fmg
+VITE_EMAILJS_TEMPLATE_ID = template_lymiu0f
+VITE_EMAILJS_PUBLIC_KEY = tPHrqLP - vpqk8uxAB
+root @srv1038810: /var/www / concept / Backend# cd routes
+root @srv1038810: /var/www / concept / Backend / routes# cat projectRoutes.js
+const express = require("express");
 const router = express.Router();
 const Project = require("../models/Projects");
 const multer = require("multer");
@@ -215,5 +265,3 @@ router.delete("/:id", async (req, res) => {
         res.status(500).json({ message: "Failed to delete project", error: err.message });
     }
 });
-
-module.exports = router;

@@ -3,8 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ChevronLeft, X } from "lucide-react";
 import TheOutlineMain from "../assets/TheOutlineMain.png"; // fallback image
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-
+const API_URL = import.meta.env.VITE_API_URL || "https://www.conceptlb.com/api";
 const PropertyListing = () => {
     const navigate = useNavigate();
     const { id } = useParams(); // project ID from URL
@@ -25,7 +24,7 @@ const PropertyListing = () => {
         const fetchProject = async () => {
             setLoading(true);
             try {
-                const res = await fetch(`${API_URL}/api/projects/${id}`);
+                const res = await fetch(`${API_URL}/projects/${id}`);
                 if (!res.ok) throw new Error(`Project not found`);
                 const data = await res.json();
                 setProject(data);
@@ -83,7 +82,7 @@ const PropertyListing = () => {
             {/* Project Description */}
             <div className="max-w-4xl mx-auto text-center mb-12">
                 <p className="text-black text-lg md:text-3xl font-light leading-relaxed">
-                    {project.description}
+                    {project.description?.trim() || "Description not available for this project."}
                 </p>
             </div>
 
@@ -107,16 +106,16 @@ const PropertyListing = () => {
                             Object.entries(project.layout)
                                 .filter(([key]) => key !== "_id") // <-- ignore _id
                                 .map(([key, value]) => (
-                                <div
-                                    key={key}
-                                    className="flex justify-between bg-white mb-10 items-center p-4 rounded-2xl border-2 border-[#D7DF21] shadow-sm"
-                                >
-                                    <span className="capitalize font-medium text-gray-900">
-                                        {key.replace(/([A-Z])/g, " $1")}
-                                    </span>
-                                    <span className="font-semibold">{value}</span>
-                                </div>
-                            ))}
+                                    <div
+                                        key={key}
+                                        className="flex justify-between bg-white mb-10 items-center p-4 rounded-2xl border-2 border-[#D7DF21] shadow-sm"
+                                    >
+                                        <span className="capitalize font-medium text-gray-900">
+                                            {key.replace(/([A-Z])/g, " $1")}
+                                        </span>
+                                        <span className="font-semibold">{value}</span>
+                                    </div>
+                                ))}
                     </div>
                 </div>
             </div>
@@ -174,4 +173,3 @@ const PropertyListing = () => {
 };
 
 export default PropertyListing;
-

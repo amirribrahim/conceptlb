@@ -4,34 +4,39 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
+const cookieParser = require("cookie-parser");
+
 require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-// create uploads/projects folder if missing
+
+// Create uploads/projects folder if missing
 const uploadsDir = path.join(__dirname, "uploads");
 const projectsDir = path.join(uploadsDir, "projects");
 fs.mkdirSync(projectsDir, { recursive: true });
 
-app.use(cors());
 app.use(express.json());
-// serve uploaded files
-app.use("/uploads", express.static(uploadsDir));
+app.use(cookieParser()); // must be before routes that read req.cookies
 
+app.use(cors({
+    origin: ["http://localhost:5173", "http://localhost:8080"], // add both dev origins
+    credentials: true
+}));
 
-// Middleware
-app.use(cors());
-app.use(express.json()); // for JSON bodies
 // Serve uploaded files statically
 app.use("/uploads", express.static(uploadsDir));
 
-// Routes (require after static config)
+// ✅ Routes
 const projectRoutes = require("./routes/projectRoutes");
 app.use("/api/projects", projectRoutes);
 
+const authRoutes = require("./routes/authRoutes");
+app.use("/api/auth", authRoutes);
+
 // Connect to MongoDB
 mongoose
-    .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(process.env.MONGO_URI)
     .then(() => {
         console.log("✅ MongoDB Connected");
         app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

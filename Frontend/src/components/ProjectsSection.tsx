@@ -32,7 +32,7 @@ const ProjectsSection = () => {
                         fontSize: "clamp(4rem, 12vw, 20rem)",
                         WebkitTextStroke: "clamp(2px, 0.15vw, 3px) black",
                         WebkitTextFillColor: "transparent",
-                    }} 
+                    }}
                 >
                     PROJECTS
                 </h1>
@@ -98,7 +98,7 @@ const ProjectsSection = () => {
             </div>
 
             {/* Bottom Stats Section */}
-         
+
         </section>
     );
 };

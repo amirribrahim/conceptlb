@@ -18,7 +18,7 @@ const Footer = () => {
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${defaultMessage}`;
 
   return (
-    <footer className="bg-white px-8 py-12">
+    <footer className="bg-white px-2 py-12">
       <div className="max-w-7xl mx-auto bg-[#E6E6E6] p-10 rounded-3xl ">
         <div className="grid md:grid-cols-3 gap-12">
           {/* Left Column - Company Info */}

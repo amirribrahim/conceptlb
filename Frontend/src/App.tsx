@@ -12,6 +12,9 @@ import ProjectsDetails from "./pages/ProjectsDetails";
 import Admin from "./pages/Admin";
 import Preloader from "./components/Preloader";
 import { useState, useEffect } from "react";
+import AdminDashboard from "./components/AdminDashboard"; 
+import AdminLog from "./pages/adminlog";
+
 
 const queryClient = new QueryClient();
 
@@ -39,7 +42,9 @@ const App = () => {
                         <Route path="/ForSale" element={<ForSale />} />
                         <Route path="/Projects" element={<Projects />} />
                         <Route path="/Contact" element={<Contact />} />
+                        <Route path="/adminlog" element={<AdminLog />} />
                         <Route path="/projects/:id" element={<ProjectsDetails />} />
+                        <Route path="/admin/dashboard" element={<AdminDashboard />} /> 
                         <Route path="*" element={<NotFound />} />
 
                         {/* 👇 Admin route only in development */}
